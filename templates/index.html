@@ -1,8 +1,39 @@
-<html>
- <head>
-   <title>Flask Static Demo</title>
- </head>
- <body>
-   <h1>Hello there world!</h1>
- </body>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moodify - Mood-based Playlists</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+</head>
+<body>
+  <main class="container">
+    <div class="card">
+      <header class="header">
+        <h1>Moodify</h1>
+        <p class="subtitle">Get personalized playlists based on your mood</p>
+      </header>
+
+      <!-- Mood Input Section -->
+      <div id="input-view" class="view active">
+        <div class="form-group">
+          <label for="mood-input">How are you feeling today?</label>
+          <textarea id="mood-input" placeholder="e.g., I'm feeling energetic and ready to conquer the day!" rows="3"></textarea>
+        </div>
+        <button id="generate-btn" class="btn btn-primary">Generate Playlist</button>
+      </div>
+
+      <!-- Playlist Display Section -->
+      <div id="playlist-view" class="view" style="display: none;">
+        <h2>Your Personalized Playlist</h2>
+        <p id="mood-description"></p>
+        <ul id="playlist-items"></ul>
+        <button id="back-btn" class="btn btn-secondary">Back</button>
+      </div>
+    </div>
+  </main>
+  <!-- <script src="script.js"></script> -->
+</body>
 </html>
