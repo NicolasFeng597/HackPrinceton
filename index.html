@@ -1,70 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Moodify - Mood-based Playlists</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<title>Flask Tutorial</title>
 </head>
-<body class="light-mode">
-  <main class="container">
-    <div class="card">
-      <header class="header">
-        <div class="header-content">
-          <h1>Moodify</h1>
-          <p class="subtitle">Get personalized playlists based on your mood</p>
-        </div>
-        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-          <span class="theme-toggle-icon">🌙</span>
-        </button>
-      </header>
-
-      <!-- Input View -->
-      <div id="input-view" class="view active">
-        <div class="form-group">
-          <label for="mood-input">How are you feeling today?</label>
-          <form action="/submit" method="get" id="mood-input">
-            <textarea name="message" rows="10" cols="30"></textarea>
-            <input type="submit" value="Generate Playlist" id="generate-btn" class="btn btn-primary">
-          </form>
-        </div>
-
-        <div class="form-group">
-          <label for="energy-slider">Energy Level</label>
-          <div class="slider-container">
-            <span class="slider-label">Less Upbeat</span>
-            <input 
-              type="range" 
-              id="energy-slider" 
-              min="1" 
-              max="10" 
-              value="5"
-              aria-label="Energy level"
-            >
-            <span class="slider-label">More Upbeat</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Playlist View -->
-      <div id="playlist-view" class="view">
-        <div class="playlist-header">
-          <h2>Your Personalized Playlist</h2>
-          <p id="mood-description" class="mood-description"></p>
-        </div>
-
-        <ul id="playlist-items" class="playlist-items">
-          <!-- Playlist items will be generated here -->
-        </ul>
-
-        <div class="button-group">
-          <button id="back-btn" class="btn btn-secondary">Back</button>
-          <button id="regenerate-btn" class="btn btn-primary">Regenerate</button>
-        </div>
-      </div>
-    </div>
-  </main>
-  <!-- <script src="script.js"></script> -->
+<body>
+<h1>This is the Index page</h1>
 </body>
-</html>
+</html>  
