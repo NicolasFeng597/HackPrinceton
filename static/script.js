@@ -10,7 +10,6 @@ const inputView = document.getElementById("input-view")
 const playlistView = document.getElementById("playlist-view")
 const playlistItems = document.getElementById("playlist-items")
 const moodDescription = document.getElementById("mood-description")
-const darkModeToggle = document.getElementById("dark-mode-toggle")
 
 // Mock data for playlist generation
 const mockArtists = [
@@ -89,19 +88,9 @@ function init() {
   generateBtn.addEventListener("click", generatePlaylist)
   backBtn.addEventListener("click", showInputView)
   regenerateBtn.addEventListener("click", generatePlaylist)
-  darkModeToggle.addEventListener("change", toggleDarkMode)
 
   // Initialize textarea height
   autoResizeTextarea()
-
-  // Check for user's preferred color scheme
-  const body = document.body
-  if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-    body.classList.remove("light-mode")
-    body.classList.add("dark-mode")
-    themeToggleIcon.textContent = "☀️"
-    darkModeToggle.checked = true
-  }
 }
 
 // Toggle between light and dark themes
@@ -111,12 +100,10 @@ function toggleTheme() {
     body.classList.remove("light-mode")
     body.classList.add("dark-mode")
     themeToggleIcon.textContent = "☀️"
-    darkModeToggle.checked = true
   } else {
     body.classList.remove("dark-mode")
     body.classList.add("light-mode")
     themeToggleIcon.textContent = "🌙"
-    darkModeToggle.checked = false
   }
 }
 
@@ -228,20 +215,6 @@ function showInputView() {
 function truncateText(text, maxLength) {
   if (text.length <= maxLength) return text
   return text.substring(0, maxLength) + "..."
-}
-
-// Toggle dark mode based on checkbox
-function toggleDarkMode() {
-  const body = document.body
-  if (darkModeToggle.checked) {
-    body.classList.remove("light-mode")
-    body.classList.add("dark-mode")
-    themeToggleIcon.textContent = "☀️"
-  } else {
-    body.classList.remove("dark-mode")
-    body.classList.add("light-mode")
-    themeToggleIcon.textContent = "🌙"
-  }
 }
 
 // Initialize the application when the DOM is loaded
