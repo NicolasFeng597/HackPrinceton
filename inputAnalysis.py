@@ -4,6 +4,8 @@ def inputAnalysis(prompt):
     
     # Import json
     import json
+
+    return(prompt)
     
     # Prompt engineer Gemini to generate mood analysis
     
