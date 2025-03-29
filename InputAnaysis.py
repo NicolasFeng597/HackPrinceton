@@ -2,11 +2,6 @@
 
 pip install -q -U google-genai
 
-# Securely import the API key
-
-from google.colab import userdata
-userdata.get('GOOGLE_API_KEY')
-
 # Import gemini AI sentiment model
 from google import genai
 
@@ -16,7 +11,7 @@ import json
 # Prompt engineer Gemini to generate mood analysis
 
 # Get the API key
-client = genai.Client(api_key=userdata.get('GOOGLE_API_KEY'))
+client = genai.Client(api_key=secrets.GEMINI_API)
 
 # List of 27 emotions
 emotions = (
