@@ -1,3 +1,7 @@
+# Install the Gemini package
+
+pip install -q -U google-genai
+
 # Securely import the API key
 
 from google.colab import userdata
