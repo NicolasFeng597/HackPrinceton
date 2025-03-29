@@ -11,5 +11,5 @@ def hello():
                            message=message)
 
 # run the application
-if __name__ == "__app__":
+if __name__ == "__main__":
     app.run(debug=True)
