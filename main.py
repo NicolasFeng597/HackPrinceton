@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from
+from inputAnalysis import importAnalysis
 
 app = Flask(__name__)
 
@@ -9,8 +9,9 @@ def index():
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    name = request.form['name']
-    return
+    prompt = request.form['prompt']
+    result = importAnalysis(prompt)
+    return result
 
 if __name__ == '__main__':
     app.run(debug=True)
