@@ -1,6 +1,3 @@
-# Install flask
-pip install flask
-
 # Import flask
 from flask import Flask, request, render_template
 
