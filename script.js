@@ -1,224 +1,68 @@
-// DOM Elements
-const themeToggle = document.getElementById("theme-toggle")
-const themeToggleIcon = document.querySelector(".theme-toggle-icon")
-const moodInput = document.getElementById("mood-input")
-const energySlider = document.getElementById("energy-slider")
-const generateBtn = document.getElementById("generate-btn")
-const backBtn = document.getElementById("back-btn")
-const regenerateBtn = document.getElementById("regenerate-btn")
-const inputView = document.getElementById("input-view")
-const playlistView = document.getElementById("playlist-view")
-const playlistItems = document.getElementById("playlist-items")
-const moodDescription = document.getElementById("mood-description")
+document.addEventListener("DOMContentLoaded", () => {
+  const moodInput = document.getElementById("mood-input");
+  const generateBtn = document.getElementById("generate-btn");
+  const inputView = document.getElementById("input-view");
+  const playlistView = document.getElementById("playlist-view");
+  const moodDescription = document.getElementById("mood-description");
+  const playlistItems = document.getElementById("playlist-items");
+  const backBtn = document.getElementById("back-btn");
 
-// Mock data for playlist generation
-const mockArtists = [
-  "The Mood Lifters",
-  "Emotional Echo",
-  "Feeling Fine",
-  "Vibe Collective",
-  "Sentiment",
-  "The Expressions",
-  "Mood Swing",
-  "Emotional Intelligence",
-  "The Feelings",
-  "State of Mind",
-  "Wavelength",
-  "The Atmosphere",
-]
+  generateBtn.addEventListener("click", async () => {
+    const moodText = moodInput.value.trim();
+    if (!moodText) {
+      alert("Please enter your mood description.");
+      return;
+    }
 
-const mockSongsByMood = {
-  happy: [
-    "Sunshine Smile",
-    "Joy Ride",
-    "Happy Days",
-    "Upbeat Rhythm",
-    "Positive Vibes",
-    "Cheerful Morning",
-    "Bright Side",
-    "Good Times",
-  ],
-  sad: [
-    "Rainy Day",
-    "Blue Memories",
-    "Missing You",
-    "Melancholy Nights",
-    "Teardrops",
-    "Lonely Road",
-    "Fading Away",
-    "Silent Tears",
-  ],
-  energetic: [
-    "Power Up",
-    "Adrenaline Rush",
-    "Full Speed",
-    "Energy Boost",
-    "Unstoppable",
-    "Lightning Strike",
-    "Maximum Drive",
-    "Turbo Mode",
-  ],
-  calm: [
-    "Peaceful Mind",
-    "Gentle Breeze",
-    "Quiet Moments",
-    "Tranquil Waters",
-    "Serene Space",
-    "Soft Whispers",
-    "Calm Reflections",
-    "Still Waters",
-  ],
-  reflective: [
-    "Deep Thoughts",
-    "Inner Journey",
-    "Soul Searching",
-    "Retrospect",
-    "Looking Back",
-    "Self Discovery",
-    "Mind Wandering",
-    "Introspection",
-  ],
-}
+    try {
+      const response = await fetch("http://127.0.0.1:5000/analyze-mood", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: moodText }),
+      });
 
-// Initialize the application
-function init() {
-  // Set up event listeners
-  themeToggle.addEventListener("click", toggleTheme)
-  moodInput.addEventListener("input", autoResizeTextarea)
-  generateBtn.addEventListener("click", generatePlaylist)
-  backBtn.addEventListener("click", showInputView)
-  regenerateBtn.addEventListener("click", generatePlaylist)
+      if (!response.ok) throw new Error("Failed to fetch mood analysis");
 
-  // Initialize textarea height
-  autoResizeTextarea()
-}
+      const moodData = await response.json();
+      console.log("Mood Analysis:", moodData);
 
-// Toggle between light and dark themes
-function toggleTheme() {
-  const body = document.body
-  if (body.classList.contains("light-mode")) {
-    body.classList.remove("light-mode")
-    body.classList.add("dark-mode")
-    themeToggleIcon.textContent = "☀️"
-  } else {
-    body.classList.remove("dark-mode")
-    body.classList.add("light-mode")
-    themeToggleIcon.textContent = "🌙"
+      const topEmotion = Object.keys(moodData).reduce((a, b) => moodData[a] > moodData[b] ? a : b);
+      moodDescription.textContent = `Detected Mood: ${topEmotion.charAt(0).toUpperCase() + topEmotion.slice(1)}`;
+
+      generatePlaylist(topEmotion);
+      inputView.style.display = "none";
+      playlistView.style.display = "block";
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error fetching mood data. Please try again.");
+    }
+  });
+
+  backBtn.addEventListener("click", () => {
+    playlistView.style.display = "none";
+    inputView.style.display = "block";
+  });
+
+  function generatePlaylist(mood) {
+    const moodToPlaylist = {
+      joy: ["Happy - Pharrell Williams", "Uptown Funk - Bruno Mars", "Can't Stop the Feeling - Justin Timberlake"],
+      sadness: ["Someone Like You - Adele", "Fix You - Coldplay", "Hallelujah - Jeff Buckley"],
+      excitement: ["Eye of the Tiger - Survivor", "Don't Stop Me Now - Queen", "Thunderstruck - AC/DC"],
+      calmness: ["Weightless - Marconi Union", "Clair de Lune - Debussy", "Sunflower - Post Malone"],
+      nostalgia: ["Bohemian Rhapsody - Queen", "Take Me Home, Country Roads - John Denver", "Yesterday - The Beatles"]
+    };
+
+    playlistItems.innerHTML = "";
+    const songs = moodToPlaylist[mood] || ["Default Song 1", "Default Song 2"];
+    
+    songs.forEach(song => {
+      const li = document.createElement("li");
+      li.textContent = song;
+      playlistItems.appendChild(li);
+    });
   }
-}
+});
 
-// Auto-resize textarea based on content
-function autoResizeTextarea() {
-  moodInput.style.height = "auto"
-  moodInput.style.height = moodInput.scrollHeight + "px"
-}
-
-// Switch to playlist view and generate playlist
-function generatePlaylist() {
-  // Get user input
-  const mood = moodInput.value.trim()
-  const energyLevel = energySlider.value
-
-  // Validate input
-  if (!mood) {
-    moodInput.focus()
-    return
-  }
-
-  // Update mood description
-  moodDescription.textContent = `Based on your mood: "${truncateText(mood, 60)}" with energy level ${energyLevel}/10`
-
-  // Generate playlist items
-  generatePlaylistItems(mood, energyLevel)
-
-  // Switch to playlist view
-  inputView.classList.remove("active")
-  playlistView.classList.add("active")
-}
-
-// Generate playlist items based on mood and energy level
-function generatePlaylistItems(mood, energyLevel) {
-  // Clear existing playlist
-  playlistItems.innerHTML = ""
-
-  // Determine mood category based on input text
-  const moodCategory = determineMoodCategory(mood)
-
-  // Generate 5 playlist items
-  for (let i = 0; i < 5; i++) {
-    const songTitle = getRandomSong(moodCategory)
-    const artist = getRandomArtist()
-
-    // Create playlist item
-    const listItem = document.createElement("li")
-    listItem.className = "playlist-item"
-    listItem.style.animationDelay = `${(i + 1) * 0.1}s`
-
-    // Create song title and artist elements
-    const titleElement = document.createElement("div")
-    titleElement.className = "song-title"
-    titleElement.textContent = songTitle
-
-    const artistElement = document.createElement("div")
-    artistElement.className = "song-artist"
-    artistElement.textContent = artist
-
-    // Append elements to list item
-    listItem.appendChild(titleElement)
-    listItem.appendChild(artistElement)
-
-    // Append list item to playlist
-    playlistItems.appendChild(listItem)
-  }
-}
-
-// Determine mood category based on input text
-function determineMoodCategory(mood) {
-  const moodLower = mood.toLowerCase()
-
-  // Simple keyword matching for mood detection
-  if (moodLower.match(/happy|joy|excited|great|good|wonderful|fantastic/)) {
-    return "happy"
-  } else if (moodLower.match(/sad|down|blue|depressed|unhappy|miserable/)) {
-    return "sad"
-  } else if (moodLower.match(/energetic|active|pumped|motivated|ready/)) {
-    return "energetic"
-  } else if (moodLower.match(/calm|peaceful|relaxed|chill|quiet/)) {
-    return "calm"
-  } else if (moodLower.match(/thoughtful|reflective|pensive|thinking/)) {
-    return "reflective"
-  }
-
-  // Default to a random category if no match
-  const categories = Object.keys(mockSongsByMood)
-  return categories[Math.floor(Math.random() * categories.length)]
-}
-
-// Get a random song from the specified mood category
-function getRandomSong(moodCategory) {
-  const songs = mockSongsByMood[moodCategory]
-  return songs[Math.floor(Math.random() * songs.length)]
-}
-
-// Get a random artist
-function getRandomArtist() {
-  return mockArtists[Math.floor(Math.random() * mockArtists.length)]
-}
-
-// Switch back to input view
-function showInputView() {
-  playlistView.classList.remove("active")
-  inputView.classList.add("active")
-}
-
-// Helper function to truncate text
-function truncateText(text, maxLength) {
-  if (text.length <= maxLength) return text
-  return text.substring(0, maxLength) + "..."
-}
-
-// Initialize the application when the DOM is loaded
-document.addEventListener("DOMContentLoaded", init)
 
 
 
