@@ -3,7 +3,7 @@ import os
 
 app = Flask(__name__)
 
-@app.route('/dynamic_file')
+@app.route('/')
 def dynamic_file():
     # Logic to generate the dynamic file content
     file_content = "This is dynamically generated content."
@@ -15,7 +15,7 @@ def dynamic_file():
     # Send the temporary file
     return send_file("temp.txt", as_attachment=True, download_name="dynamic_file.txt")
 
-@app.route('/from_directory/<path:filename>')
+@app.route('/index.html')
 def from_directory(filename):
     # Ensure the path is safe
     directory = os.path.abspath("./files")
