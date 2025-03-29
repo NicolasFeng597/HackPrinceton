@@ -1,7 +1,3 @@
-# Install the Gemini package
-
-pip install -q -U google-genai
-
 # Import gemini AI sentiment model
 from google import genai
 
