@@ -10,7 +10,7 @@ def index():
 @app.route('/submit', methods=['POST'])
 def submit():
     prompt = request.form['prompt']
-    result = importAnalysis(prompt)
+    result = inputAnalysis(prompt)
     return result
 
 if __name__ == '__main__':
