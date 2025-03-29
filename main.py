@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from inputAnalysis import importAnalysis
+from inputAnalysis import inputAnalysis
 
 app = Flask(__name__)
 
