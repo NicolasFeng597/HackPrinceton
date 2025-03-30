@@ -1,4 +1,4 @@
-def inputAnalysis(prompt)
+def inputAnalysis(prompt):
     # Import gemini AI sentiment model
     from google import genai
     
