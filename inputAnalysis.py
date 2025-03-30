@@ -6,7 +6,11 @@ def inputAnalysis(prompt, api_key):
     
     # Import json
     import json
-    
+
+    api_key = os.getenv('API_KEY')
+    if not api_key:
+        raise ValueError("API_KEY not found in environment variables")
+
     # Prompt engineer Gemini to generate mood analysis
     
     # Get the API key
