@@ -15,8 +15,8 @@ def submit():
     # Retrieve form data from the user
     prompt = request.form.get('prompt')
     api_key = os.getenv('API_KEY')
-        if not api_key:
-            return "API_KEY not found in environment variables.", 500
+    if not api_key:
+        return "API_KEY not found in environment variables.", 500
     return inputAnalysis(prompt, api_key)
 
 if __name__ == '__main__':
