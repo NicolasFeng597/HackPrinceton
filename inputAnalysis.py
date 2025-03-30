@@ -6,7 +6,7 @@ def inputAnalysis(prompt):
     api_key = os.getenv('API_KEY')
 
     if api_key is None:
-        print("API key not found.")
+        return("API key not found.")
     else:
         print("API key found")
     
