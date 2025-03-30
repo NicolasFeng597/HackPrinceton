@@ -1,11 +1,14 @@
+from google import genai
+import os
+import json
+from dotenv import load_dotenv
+
+load_dotenv()
+
 def inputAnalysis(prompt, api_key):
-    # Import gemini AI sentiment model
-    from google import genai
-    
-    import os
-    
-    # Import json
-    import json
+    api_key = os.getenv('GEMINI_API_KEY')
+    if not api_key:
+        raise ValueError("API_KEY not found in environment variables")
 
     # Prompt engineer Gemini to generate mood analysis
     
