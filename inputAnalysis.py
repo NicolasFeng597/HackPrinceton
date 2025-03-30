@@ -4,9 +4,12 @@ def inputAnalysis(prompt, api_key):
     
     import os
 
+    load_dotenv()  # Automatically loads variables from .env file
+
+    api_key = os.getenv('API_KEY')
     if not api_key:
         raise ValueError("API_KEY not found in environment variables")
-    print(f"API Key: {api_key}")
+
 
     # Import json
     import json
