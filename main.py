@@ -11,7 +11,6 @@ def index():
 @app.route('/submit', methods=['POST'])
 def submit():
     prompt = request.form['prompt']
-    result = inputAnalysis(prompt)
     # Access the environment variable only at script execution
     api_key = os.getenv('API_KEY')  # Retrieve API_KEY here
     if not api_key:
