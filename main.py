@@ -1,7 +1,7 @@
 import os
-import subprocess
 from flask import Flask, render_template, request
 from inputAnalysis import inputAnalysis
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 
@@ -14,6 +14,7 @@ def index():
 def submit():
     # Retrieve form data from the user
     prompt = request.form.get('prompt')
+    load_dotenv()
     api_key = os.getenv('API_KEY')
     if not api_key:
         return "API_KEY not found in environment variables.", 500
