@@ -7,8 +7,6 @@ def inputAnalysis(prompt, api_key):
     # Import json
     import json
 
-    api_key = os.getenv('API_KEY')
-
     # Prompt engineer Gemini to generate mood analysis
     
     # Get the API key
