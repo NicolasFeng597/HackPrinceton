@@ -20,5 +20,5 @@ jobs:
         
       - name: Run Python script
         env:
-          API_KEY: ${{ secrets.API_KEY }}
+          API_KEY: ${{ secrets.GEMINI_API }}
         run: python inputAnalysis.py
