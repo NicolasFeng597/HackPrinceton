@@ -17,7 +17,7 @@ def submit():
     load_dotenv()
     api_key = os.getenv('API_KEY')
     if not api_key:
-        return "API_KEY not found in environment variables.", 500
+        return "API_KEY not found in environment variables."
     return inputAnalysis(prompt, api_key)
 
 if __name__ == '__main__':
