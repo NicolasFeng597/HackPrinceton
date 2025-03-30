@@ -13,25 +13,11 @@ def index():
 @app.route('/submit', methods=['POST'])
 def submit():
     # Retrieve form data from the user
-    user_data = request.form.get('prompt')
-
-    # Validate the form data
-    if not user_data:
-        return "Invalid input. Please provide valid data.", 400
-
-    try:
-        # Access the API_KEY environment variable ONLY when the form is submitted
-        api_key = os.getenv('API_KEY')
+    prompt = request.form.get('prompt')
+    api_key = os.getenv('API_KEY')
         if not api_key:
             return "API_KEY not found in environment variables.", 500
-
-        # Execute the script and pass the user data and API key as arguments
-        subprocess.run(["python", "inputAnalysis.py", user_data, api_key], check=True)
-
-    except subprocess.CalledProcessError as e:
-        return f"Error running script: {e}", 500
-
-    return "Script executed successfully! Thank you!", 200
+    return inputAnalysis(prompt, api_key)
 
 if __name__ == '__main__':
     app.run(debug=True)
