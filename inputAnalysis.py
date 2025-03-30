@@ -16,7 +16,7 @@ def inputAnalysis(prompt):
     # Prompt engineer Gemini to generate mood analysis
     
     # Get the API key
-    client = genai.Client(api_key=secrets.GEMINI_API)
+    client = genai.Client(api_key=api_key)
     
     # List of 27 emotions
     emotions = (
