@@ -1,13 +1,14 @@
 import os
 import subprocess
 from flask import Flask, render_template, request
+from inputAnalysis import inputAnalysis
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
     # Serve the form
-    return render_template('form.html')
+    return render_template('index.html')
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -25,7 +26,7 @@ def submit():
             return "API_KEY not found in environment variables.", 500
 
         # Execute the script and pass the user data and API key as arguments
-        subprocess.run(["python", "your_script.py", user_data, api_key], check=True)
+        subprocess.run(["python", "inputAnalysis.py", user_data, api_key], check=True)
 
     except subprocess.CalledProcessError as e:
         return f"Error running script: {e}", 500
