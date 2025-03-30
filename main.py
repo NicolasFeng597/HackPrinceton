@@ -13,7 +13,7 @@ def index():
 @app.route('/submit', methods=['POST'])
 def submit():
     # Retrieve form data from the user
-    user_data = request.form.get('user_input')
+    user_data = request.form.get('prompt')
 
     # Validate the form data
     if not user_data:
