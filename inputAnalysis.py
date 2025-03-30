@@ -3,7 +3,7 @@ def inputAnalysis(prompt):
     from google import genai
     import os
 
-    api_key = os.environ.get("API_KEY")
+    api_key = os.getenv("API_KEY")
 
     if api_key is None:
         return("API key not found.")
