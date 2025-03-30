@@ -1,32 +1,29 @@
-name: Run Python Script with API Key
-
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
-
-jobs:
-  run_script:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.9
-
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-
-      - name: Run Python script
-        env:
-          API_KEY: ${{ secrets.GEMINI_API }}  # Map the GitHub secret to API_KEY
-        run: python your_script.py
-
-      - name: Debug Environment Variables
+name: Run Python Script
+ 
+ on:
+   push:
+     branches:
+       - main
+   workflow_dispatch:
+ 
+ jobs:
+   run_script:
+     runs-on: ubuntu-latest
+     steps:
+       - name: Checkout code
+         uses: actions/checkout@v3
+ 
+       - name: Set up Python
+         uses: actions/setup-python@v4
+         with:
+           python-version: 3.9
+ 
+       - name: Run Python script
+         env:
+           API_KEY: ${{ secrets.GEMINI_API }}
+         run: python inputAnalysis.py
+ 
+       - name: Debug Environment Variables
          env:
            API_KEY: ${{ secrets.GEMINI_API }}
          run: |
