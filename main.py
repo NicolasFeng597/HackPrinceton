@@ -14,7 +14,7 @@ def index():
 def submit():
     # Retrieve form data from the user
     prompt = request.form.get('prompt')
-    api_key = os.getenv('API_KEY')
+    api_key = os.getenv('GEMINI_API')
     if not api_key:
         return "API_KEY not found in environment variables.", 500
     return inputAnalysis(prompt, api_key)
