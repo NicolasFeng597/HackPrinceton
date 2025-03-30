@@ -11,8 +11,7 @@ def index():
 @app.route('/submit', methods=['POST'])
 def submit():
     prompt = request.form['prompt']
-    api_key = os.getenv('API_KEY')
-    result = inputAnalysis(prompt, api_key)
+    result = inputAnalysis(prompt)
     return result
 
 if __name__ == '__main__':
