@@ -1,15 +1,12 @@
-def inputAnalysis(prompt, api_key):
+def inputAnalysis(prompt)
     # Import gemini AI sentiment model
     from google import genai
     
     import os
 
-    load_dotenv()  # Automatically loads variables from .env file
-
     api_key = os.getenv('API_KEY')
     if not api_key:
         raise ValueError("API_KEY not found in environment variables")
-
 
     # Import json
     import json
