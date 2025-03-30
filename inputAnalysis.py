@@ -4,7 +4,7 @@ def inputAnalysis(prompt):
     
     import os
 
-    api_key = os.getenv('API_KEY')  # Use os.getenv to access the environment variable
+    api_key = os.getenv('GEMINI_API')  # Use os.getenv to access the environment variable
     if not api_key:
         raise ValueError("API_KEY not found in environment variables")
     print(f"API Key: {api_key}")
