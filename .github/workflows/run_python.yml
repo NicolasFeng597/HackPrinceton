@@ -24,4 +24,4 @@ jobs:
       - name: Run Python script
         env:
           API_KEY: ${{ secrets.API_KEY }}
-        run: python your_script.py
+        run: python inputAnalysis.py
