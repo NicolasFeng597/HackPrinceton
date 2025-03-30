@@ -1,15 +1,14 @@
 def inputAnalysis(prompt):
     # Import gemini AI sentiment model
     from google import genai
+    
     import os
 
-    api_key = os.getenv("API_KEY")
+    api_key = os.getenv('API_KEY')  # Use os.getenv to access the environment variable
+    if not api_key:
+        raise ValueError("API_KEY not found in environment variables")
+    print(f"API Key: {api_key}")
 
-    if api_key is None:
-        return("API key not found.")
-    else:
-        print("API key found")
-    
     # Import json
     import json
     
