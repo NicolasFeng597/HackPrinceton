@@ -14,6 +14,7 @@ def submit():
     # Access the environment variable only at script execution
     api_key = os.getenv('API_KEY')  # Retrieve API_KEY here
     # Call the external script and pass user data and API_KEY
+    return(api_key)
     return inputAnalysis(prompt, api_key)
 
 if __name__ == '__main__':
